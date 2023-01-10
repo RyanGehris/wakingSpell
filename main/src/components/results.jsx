@@ -6,8 +6,7 @@ function Results({ changeView }) {
 
   return (
     <div>
-      <div>Results Page</div>
-      <button onClick={() => changeView('home')}>Home</button>
+      <button onClick={() => changeView('Waking Spell')}>Home</button>
       <div>
         <button onClick={() => setCorrect(true)}>Correct</button>
         <button onClick={() => setCorrect(false)}>Incorrect</button>

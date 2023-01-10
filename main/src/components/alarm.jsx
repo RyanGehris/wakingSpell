@@ -1,9 +1,20 @@
-import { useState } from 'react'
-import quack from '../assets/Duck-quack.mp3'
+import { useState, useEffect } from 'react'
 import '../App.css'
 
-function Alarm({ changeView }) {
+function Alarm({ changeView, playAudio, alarmAgain, triggered }) {
   const [alarmSet, setAlarmSet] = useState(false);
+  const [intervalId, setIntervalId] = useState(0);
+
+  useEffect(() => {
+    if (localStorage.getItem('alarm')) {
+      setAlarmSet(true);
+    }
+    if (localStorage.getItem('interval') === 'true') {
+      startInterval();
+    }
+  }, [])
+
+
 
   const handleSubmit = function(e) {
     e.preventDefault();
@@ -23,11 +34,15 @@ function Alarm({ changeView }) {
     })
     console.log(alarmString);
     localStorage.setItem('alarm', alarmString)
+    localStorage.setItem('interval', 'true');
     setAlarmSet(true);
+    startInterval();
   }
 
   const handleCancel = function() {
     localStorage.removeItem('alarm');
+    localStorage.removeItem('interval');
+    clearInterval(intervalId);
     setAlarmSet(false);
   }
 
@@ -45,8 +60,7 @@ function Alarm({ changeView }) {
     let alarm = localStorage.getItem('alarm')
     if (alarm === timeString) {
       console.log(alarm === timeString)
-      let audio = document.getElementById('audio');
-      audio.play()
+      playAudio()
       handleCancel();
     }
   };
@@ -66,13 +80,28 @@ function Alarm({ changeView }) {
     checkAlarm(timeString);
   };
 
+  let count = 0;
+
   // Update time every second
-  setInterval(renderTime, 1000);
+  const startInterval = function() {
+    if (intervalId !== 0) {
+      clearInterval(intervalId);
+    }
+    let newIntervalId = setInterval(() => {
+      count++;
+      console.log(count);
+      if (count === 30 && triggered) {
+        alarmAgain();
+        count = 0;
+      }
+      renderTime()
+    }, 1000);
+    setIntervalId(newIntervalId);
+  }
 
   return (
     <div>
-      <div>Alarm</div>
-      <button onClick={() => changeView('home')}>Home</button>
+      <button onClick={() => changeView('Waking Spell')}>Home</button>
       {!alarmSet &&
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
@@ -115,7 +144,6 @@ function Alarm({ changeView }) {
           <button onClick={() => handleCancel()}>Cancel</button>
         </div>
       }
-      <audio id="audio" src={quack} type="audio/mpeg">browser does not support audio</audio>
     </div>
   )
 }
