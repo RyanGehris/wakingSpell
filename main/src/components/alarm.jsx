@@ -31,6 +31,44 @@ function Alarm({ changeView }) {
     setAlarmSet(false);
   }
 
+  const getTimeString = ({ hours, minutes, seconds, zone }) => {
+    if (minutes / 10 < 1) {
+      minutes = "0" + minutes;
+    }
+    if (seconds / 10 < 1) {
+      seconds = "0" + seconds;
+    }
+    return `${hours}:${minutes}:${seconds} ${zone}`;
+  };
+
+  const checkAlarm = (timeString) => {
+    let alarm = localStorage.getItem('alarm')
+    if (alarm === timeString) {
+      console.log(alarm === timeString)
+      let audio = document.getElementById('audio');
+      audio.play()
+      handleCancel();
+    }
+  };
+
+  const renderTime = () => {
+    var currentTime = document.getElementById("current-time");
+    const currentDate = new Date();
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
+    var zone = hours >= 12 ? "PM" : "AM";
+    if (hours > 12) {
+      hours = hours % 12;
+    }
+    const timeString = getTimeString({ hours, minutes, seconds, zone });
+    console.log(timeString);
+    checkAlarm(timeString);
+  };
+
+  // Update time every second
+  setInterval(renderTime, 1000);
+
   return (
     <div>
       <div>Alarm</div>
@@ -84,41 +122,42 @@ function Alarm({ changeView }) {
 
 export default Alarm;
 
-const getTimeString = ({ hours, minutes, seconds, zone }) => {
-  if (minutes / 10 < 1) {
-    minutes = "0" + minutes;
-  }
-  if (seconds / 10 < 1) {
-    seconds = "0" + seconds;
-  }
-  return `${hours}:${minutes}:${seconds} ${zone}`;
-};
+// const getTimeString = ({ hours, minutes, seconds, zone }) => {
+//   if (minutes / 10 < 1) {
+//     minutes = "0" + minutes;
+//   }
+//   if (seconds / 10 < 1) {
+//     seconds = "0" + seconds;
+//   }
+//   return `${hours}:${minutes}:${seconds} ${zone}`;
+// };
 
-const checkAlarm = (timeString) => {
-  let alarm = localStorage.getItem('alarm')
-  if (alarm === timeString) {
-    console.log(alarm === timeString)
-    let audio = document.getElementById('audio');
-    audio.play()
-    handleCancel();
-  }
-};
+// const checkAlarm = (timeString) => {
+//   let alarm = localStorage.getItem('alarm')
+//   if (alarm === timeString) {
+//     console.log(alarm === timeString)
+//     let audio = document.getElementById('audio');
+//     audio.play()
+//     handleCancel();
+//   }
+// };
 
-const renderTime = () => {
-  var currentTime = document.getElementById("current-time");
-  const currentDate = new Date();
-  var hours = currentDate.getHours();
-  var minutes = currentDate.getMinutes();
-  var seconds = currentDate.getSeconds();
-  var zone = hours >= 12 ? "PM" : "AM";
-  if (hours > 12) {
-    hours = hours % 12;
-  }
-  const timeString = getTimeString({ hours, minutes, seconds, zone });
-  checkAlarm(timeString);
-};
+// const renderTime = () => {
+//   var currentTime = document.getElementById("current-time");
+//   const currentDate = new Date();
+//   var hours = currentDate.getHours();
+//   var minutes = currentDate.getMinutes();
+//   var seconds = currentDate.getSeconds();
+//   var zone = hours >= 12 ? "PM" : "AM";
+//   if (hours > 12) {
+//     hours = hours % 12;
+//   }
+//   const timeString = getTimeString({ hours, minutes, seconds, zone });
+//   console.log(timeString);
+//   checkAlarm(timeString);
+// };
 
-// Update time every second
-setInterval(renderTime, 1000);
+// // Update time every second
+// setInterval(renderTime, 1000);
 
 
