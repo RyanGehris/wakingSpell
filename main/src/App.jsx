@@ -1,15 +1,30 @@
 import { useState } from 'react'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import Alarm from './components/alarm.jsx'
+import Results from './components/results.jsx'
 
-  return (
-    <div className>
-      <div>Waking Spell</div>
-      <div></div>
-    </div>
-  )
+function App() {
+  const [view, setView] = useState('home');
+  console.log("This is the view ", view)
+
+  const changeView = function(name) {
+    setView(name);
+  }
+
+  if (view === 'home') {
+    return (
+      <div>
+        <div><span>Waking Spell</span></div>
+        <div onClick={() => changeView('alarm')}>Set Alarm</div>
+        <div onClick={() => changeView('results')}>Results</div>
+      </div>
+    )
+  } else if (view === 'alarm') {
+    return <Alarm changeView={changeView}/>
+  } else if (view === 'results') {
+    return <Results changeView={changeView}/>
+  }
 }
 
 export default App

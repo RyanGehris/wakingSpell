@@ -15,7 +15,7 @@ const wordStore = new mongoose.Schema({
 const Words = mongoose.model('Words', wordStore)
 
 const resultStore = new mongoose.Schema({
-  word: {
+  attempted_word: {
     type: String,
     unique: true,
     required: true
@@ -25,6 +25,12 @@ const resultStore = new mongoose.Schema({
   meanings: [{}],
 })
 const Results = mongoose.model('Results', resultStore)
+
+// drop database
+// db.dropDatabase()
+
+// drop collection
+// db.collection.drop()
 
 // find all function
 // find()
@@ -38,4 +44,7 @@ const Results = mongoose.model('Results', resultStore)
 // delete value function
 // deleteOne()
 
-export default {Words, Results}
+// grab three random words
+// db.words.aggregate([{$sample: {size: 3}}]);
+
+export default { Words, Results };
