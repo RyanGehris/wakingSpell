@@ -1,3 +1,5 @@
+import Words from './db.js';
+
 let words = [
   "able",
   "around",
@@ -1023,9 +1025,7 @@ let words = [
   "accommodate",
   "achieve",
   "acquire",
-  "address",
   "advice",
-  "almost",
   "apparent",
   "arctic",
   "argument",
@@ -1034,16 +1034,11 @@ let words = [
   "awful",
   "becoming",
   "beginning",
-  "believe",
-  "business",
-  "calendar",
   "category",
   "ceiling",
   "cemetery",
   "changeable",
-  "chief",
   "collectible",
-  "column",
   "coming",
   "committed",
   "conscience",
@@ -1053,7 +1048,6 @@ let words = [
   "deceive",
   "definitely",
   "desperate",
-  "difference",
   "dilemma",
   "disappoint",
   "disastrous",
@@ -1061,23 +1055,18 @@ let words = [
   "embarrassment",
   "equipment",
   "exceed",
-  "exercise",
   "exhilarate",
   "existence",
-  "experience",
   "fascinating",
   "fiery",
   "fluorescent",
   "foreign",
-  "forward",
   "friend",
   "gauge",
-  "government",
   "grateful",
   "guarantee",
   "guidance",
   "harass",
-  "height",
   "hierarchy",
   "humorous",
   "ignorance",
@@ -1089,10 +1078,8 @@ let words = [
   "jealous",
   "jewelry",
   "judgment",
-  "knowledge",
   "leisure",
   "liaison",
-  "library",
   "license",
   "maintenance",
   "mathematics",
@@ -1104,11 +1091,9 @@ let words = [
   "mischievous",
   "misspell",
   "mysterious",
-  "necessary",
   "neighbor",
   "noticeable",
   "nuclear",
-  "occasionally",
   "occurrence",
   "omission",
   "original",
@@ -1117,22 +1102,17 @@ let words = [
   "perseverance",
   "personally",
   "personnel",
-  "piece",
   "playwright",
-  "possession",
   "precede",
   "prejudice",
   "presence",
   "privilege",
   "professor",
-  "promise",
   "pronunciation",
   "proof",
   "publicly",
   "questionnaire",
-  "quiet",
   "quit",
-  "quite",
   "really",
   "recommend",
   "reference",
@@ -1142,29 +1122,45 @@ let words = [
   "repetition",
   "restaurant",
   "rhyme",
-  "rhythm",
   "scissors",
   "secretary",
-  "separate",
   "sergeant",
   "shining",
-  "similar",
   "sincerely",
   "speech",
   "successful",
   "supersede",
   "surely",
-  "surprise",
-  "therefore",
   "thorough",
-  "through",
   "truly",
   "twelfth",
   "tyranny",
-  "until",
   "using",
   "vacuum",
   "weird",
   "withhold",
   "writing"
 ]
+
+const seedFunction = function(arr) {
+  let array = []
+  let countSuccess = 0;
+  let countFail = 0
+  arr.forEach((word) => {
+    let obj = {};
+    obj.name = word;
+    array.push(obj);
+  })
+  Words.insertMany(array)
+    .then((res) => {
+      countSuccess++
+      console.log(success);
+    })
+    .catch((err) => {
+      countFail++
+      console.log(err);
+    })
+  console.log(`${countSuccess} words imported \n${countFail} words failed`)
+}
+
+seedFunction(words);
