@@ -10,6 +10,7 @@ function Alarm({ changeView, playAudio, alarmAgain, triggered }) {
       setAlarmSet(true);
     }
     if (localStorage.getItem('interval') === 'true') {
+      setIntervalId(localStorage.getItem('intId'))
       startInterval();
     }
   }, [])
@@ -42,6 +43,7 @@ function Alarm({ changeView, playAudio, alarmAgain, triggered }) {
   const handleCancel = function() {
     localStorage.removeItem('alarm');
     localStorage.removeItem('interval');
+    localStorage.removeItem('intId');
     clearInterval(intervalId);
     setAlarmSet(false);
   }
@@ -86,6 +88,7 @@ function Alarm({ changeView, playAudio, alarmAgain, triggered }) {
   const startInterval = function() {
     if (intervalId !== 0) {
       clearInterval(intervalId);
+      localStorage.removeItem('intId');
     }
     let newIntervalId = setInterval(() => {
       count++;
@@ -97,6 +100,7 @@ function Alarm({ changeView, playAudio, alarmAgain, triggered }) {
       renderTime()
     }, 1000);
     setIntervalId(newIntervalId);
+    localStorage.setItem('intId', newIntervalId);
   }
 
   return (
