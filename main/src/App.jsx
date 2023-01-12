@@ -21,6 +21,7 @@ function App() {
   const [wordData, setWordData] = useState([]);
   const [words, setWords] = useState([]);
   const [aiImage, setAiImage] = useState('')
+  const [practiceEntry, setPracticeEntry] = useState('')
   console.log('interval id', intervalId)
   console.log("This is the view ", view)
 
@@ -53,9 +54,15 @@ function App() {
   }
 
   const getImage = function(practiceEntry) {
-
-    // setAiImage(?????)
-    // changeView('Greeting');
+    setPracticeEntry(practiceEntry)
+    changeView('Greeting')
+    axios.get('/aiImage', { params: {entry: practiceEntry}})
+      .then((res) => {
+        setAiImage(res.data);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   const updateData = async function(searchWord) {
@@ -102,7 +109,7 @@ function App() {
   };
 
   const renderTime = () => {
-    var currentTime = document.getElementById("current-time");
+    // var currentTime = document.getElementById("current-time");
     const currentDate = new Date();
     var hours = currentDate.getHours();
     var minutes = currentDate.getMinutes();
@@ -215,7 +222,7 @@ function App() {
         <Practice setActive={setActive} changeView={changeView} words={words} getImage={getImage}/>
       }
       {view === 'Greeting' &&
-        <Greeting changeView={changeView} updateQuiz={updateQuiz} aiImage={aiImage}/>
+        <Greeting changeView={changeView} updateQuiz={updateQuiz} aiImage={aiImage} practiceEntry={practiceEntry} setPracticeEntry={setPracticeEntry}/>
       }
       <audio id="audio" src={quack} type="audio/mpeg">
         browser does not support audio

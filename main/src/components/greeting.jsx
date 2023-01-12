@@ -1,14 +1,26 @@
 import React, { useState } from 'react'
 import '../App.css'
 
-function Greeting({ changeView, updateQuiz }) {
+function Greeting({ changeView, updateQuiz, aiImage, practiceEntry, setPracticeEntry }) {
 
   return (
     <div>
-      You made it to greeting
+      <div>
+        <div>AI is awake and productive! Time for you to be too!</div>
+        {aiImage === '' &&
+          <div>
+            <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' alt="loading preview"></img>
+            Waiting for AI to generate image.....
+          </div>
+        }
+        {aiImage !== '' &&
+          <img src={aiImage} alt={`produced by AI based off of the description ${practiceEntry}`}></img>
+        }
+      </div>
       <button onClick={() => {
-        changeView('Waking Spell');
         updateQuiz();
+        setPracticeEntry('')
+        changeView('Waking Spell');
       }}>
         Start Your Day
       </button>

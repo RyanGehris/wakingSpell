@@ -92,7 +92,7 @@ function SpellingBee({ changeView, wordData }) {
                 <button onClick={() => handleWordPlay()}>Play</button>
               }
               {findAudio(order).length === 0 &&
-                <div>Sorry there is no audio. Try to guess this {word.length} letter word that starts with {word.split[0]} and ends with {word.split[word.length-1]}</div>
+                <div>Sorry there is no audio. Try to guess this {word.length} letter word that starts with {word.split('')[0]} and ends with {word.split('')[word.length-1]}</div>
               }
             </div>
           </div>

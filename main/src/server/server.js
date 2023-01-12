@@ -1,13 +1,20 @@
 const express = require('express');
 const axios = require('axios');
-require('dotenv').config();
 const db = require('../database/db.js');
+const { Configuration, OpenAIApi } = require("openai");
+require('dotenv').config();
 const app = express()
-console.log("PORT ", process.env.PORT)
-const port = process.env.PORT || 5207
+const port = process.env.SERVERPORT || 5207
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+// connect to ai
+const configuration = new Configuration({
+  organization: process.env.ORG,
+  apiKey: process.env.OPEN,
+});
+const openai = new OpenAIApi(configuration);
 
 app.get('/word', (req, res) => {
   axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${req.query.word}`)
@@ -44,10 +51,18 @@ app.post('/updateResult', (req, res) => {
     })
 })
 
-// creates a get route that we will fetch from out client-side react app
-app.get('/express_backend', (req, res) => {
-  res.status(200).send('YOUR EXPRESS BACKEND IS CONNECTED TO REACT');
-});
+app.get('/aiImage', async function(req, res) {
+  console.log(req.query.entry);
+  const response = await openai.createImage({
+    prompt: req.query.entry,
+    n: 1,
+    size: "256x256"
+  });
+  let image_url = response.data.data[0].url;
+  console.log(image_url);
+  res.status(200).send(image_url);
+})
+
 
 
 //displays a message that our server is running and listening on the specified port
