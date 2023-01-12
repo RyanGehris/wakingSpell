@@ -5,38 +5,15 @@ function Practice({ changeView, words }) {
   const [entry, setEntry] = useState('');
   const [req, setReq] = {0: false, 1: false, 2: false}
 
-  // const removeString = function(str, sentence) {
-  //   if (sentence === undefined) {
-  //     return 'No example provided.'
-  //   }
-  //   let sentenceArray = sentence.split(' ');
-  //   for (let j = 0; j < sentenceArray.length; j++) {
-  //     let s = sentenceArray[j]
-  //     let punctuationless = s.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-  //     var finalString = punctuationless.replace(/\s{2,}/g," ");
-  //     if (finalString.toLowerCase() === str.toLowerCase()) {
-  //       sentenceArray[j] = '_____';
-  //     }
-  //   }
-  //   return sentenceArray.join(' ');
-  // }
-
   const wordReq = function() {
-    let sentenceArray = entry.split(' ')
-    if (sentenceArray.length > 2) {
-      for (let i = 0; i < sentenceArray.length; i++) {
-        let s = sentenceArray[i]
-        let punctuationless = s.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-        var finalString = punctuationless.replace(/\s{2,}/g," ");
-        if (finalString.toLowerCase() === words[0].toLowerCase()) {
-          newReq
-        } else if (finalString.toLowerCase() === words[1].toLowerCase()) {
-
-        } else if (finalString.toLowerCase() === words[2].toLowerCase()) {
-
-        }
-      }
-    }
+    let removedPunctuation = entry.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+    let finalString = removedPunctuation.replace(/\s{2,}/g," ");
+    let finalArray = finalString.toLowerCase().split(' ');
+    let newReq = {};
+    newReq['0'] = finalArray.includes(words[0].toLowerCase())
+    newReq['1'] = finalArray.includes(words[1].toLowerCase())
+    newReq['2'] = finalArray.includes(words[2].toLowerCase())
+    setReq(newReq);
   }
 
   return (
@@ -46,16 +23,16 @@ function Practice({ changeView, words }) {
         <textarea
           placeholder="Type your sentences here..."
           value={entry}
-          onChange={() => {
+          onChange={(e) => {
             setEntry(e.target.value)
             wordReq()
           }}>
         </textarea>
       </form>
       <div>
-        <span>{words[0]}</span>
-        <span>{words[1]}</span>
-        <span>{words[2]}</span>
+        <span style={{return (req[0] ? ("border": "solid green 3px"): ("border": "solid red 3px"))}}>{words[0]}</span>
+        <span style={{return (req[0] ? ("border": "solid green 3px"): ("border": "solid red 3px"))}}>{words[1]}</span>
+        <span style={{return (req[0] ? ("border": "solid green 3px"): ("border": "solid red 3px"))}}>{words[2]}</span>
       </div>
       <button onClick={() => changeView('Greeting')}>Next</button>
     </div>
