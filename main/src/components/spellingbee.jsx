@@ -84,7 +84,7 @@ function SpellingBee({ changeView, wordData }) {
 
   if (order <= (wordData.length - 1)) {
     return (
-      <div class="homeOptionsCont">
+      <div class="spellBeeCont">
         <div>
           <div>
             <div>

@@ -17,7 +17,7 @@ function Practice({ changeView, words, getImage, setTriggered }) {
   }
 
   return (
-    <div class="homeOptionsCont">
+    <div class="practiceCont">
       <div>Write one sentence for each word you learned!</div>
       <form>
         <textarea

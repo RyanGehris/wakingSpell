@@ -9,10 +9,10 @@ function List({ list }) {
   }
 
   return (
-    <div>
+    <div class="resultsList">
       {list.map((wordObj) => {
         return (
-          <div>
+          <div class="resultTile">
             <div>
               <div>
                 <div>{wordObj.attempted_word}</div>

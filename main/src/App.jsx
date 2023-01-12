@@ -220,7 +220,7 @@ function App() {
         <Results changeView={changeView}/>
       }
       {view === 'prompt' &&
-        <button onClick={() => handlePrompt()}>Play Spelling Bee</button>
+        <button class="prompt" onClick={() => handlePrompt()}>Play Spelling Bee</button>
       }
       {view === 'Spelling Bee' &&
         <SpellingBee setIdle={setIdle} changeView={changeView} wordData={wordData}/>

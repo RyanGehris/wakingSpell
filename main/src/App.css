@@ -107,3 +107,58 @@ h2 {
   color: orange;
   text-decoration: underline;
 }
+
+.resultsList {
+  background-color:  #ffa60075;
+  margin: 0px 5px 0px 5px;
+  border-top: solid #ffa50000;
+  border-bottom: solid #ffa50000;
+}
+
+.resultTile {
+  background-color: linen;
+  margin: 5px 5px;
+}
+
+.spellBeeCont {
+  height: 575px;
+  padding-top: 10px;
+  width: 94%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.practiceCont {
+  height: 575px;
+  padding-top: 10px;
+  width: 94%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.greetingCont {
+  height: 575px;
+  padding-top: 10px;
+  width: 94%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prompt {
+  border: orange solid 2px;
+  margin-top: 10px;
+  color: linen;
+  background-color: #ffa60075;
+  width: 50%;
+  border-radius: 5px;
+  display: flex;
+  font-size: 20px;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  height: 35px;
+  justify-content: center;
+}
