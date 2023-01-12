@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../App.css';
 
 function SpellingBee({ changeView, wordData }) {
@@ -23,14 +24,20 @@ function SpellingBee({ changeView, wordData }) {
   const handleSubmit = function() {
     let correct = (word.toLowerCase() === guess.toLowerCase())
     let saveData = {
-      word: word,
+      attempted_word: word,
       audio: findAudio(order),
       definition: def,
       example: exp,
       partOfSpeech: pOS,
       correct: correct
     }
-    // post to database
+    axios.post('/updateResult', saveData)
+      .then((res) => {
+        console.log("Success ", res);
+      })
+      .catch((err) => {
+        console.log("Error ", err)
+      })
     if (correct) {
       alert('Good Job!');
     } else {

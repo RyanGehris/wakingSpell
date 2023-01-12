@@ -40,9 +40,10 @@ app.get('/random', (req, res) => {
 })
 
 app.post('/updateResult', (req, res) => {
+  console.log(req.body)
   db.Results.replaceOne({word: req.body.word}, req.body, {strict: false, upsert: true})
     .then((result) => {
-      console.log(result)
+      console.log("SUCCESS ", result)
       res.status(200).send(result);
     })
     .catch((err) => {

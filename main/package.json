@@ -22,6 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "server": "node /Users/RyanGehris/mvp-project/wakingSpell/main/src/server/server.js",
     "mongo": "node /Users/RyanGehris/mvp-project/wakingSpell/main/src/database/db.js",
     "seed": "node /Users/RyanGehris/mvp-project/wakingSpell/main/src/database/words.js"
   },
