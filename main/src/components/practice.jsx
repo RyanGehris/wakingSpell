@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../App.css'
 
-function Practice({ changeView, words }) {
+function Practice({ changeView, words, getImage }) {
   const [entry, setEntry] = useState('');
   const [req, setReq] = useState({0: false, 1: false, 2: false})
 
@@ -35,7 +35,7 @@ function Practice({ changeView, words }) {
         <span style={{"border": `solid ${req["2"] ? 'green': 'red'} 3px`}}>{words[2]}</span>
       </div>
       { req['0'] && req['1'] && req['2'] &&
-        <button onClick={() => changeView('Greeting')}>Next</button>
+        <button onClick={() => getImage(entry)}>Next</button>
       }
     </div>
   )

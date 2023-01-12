@@ -3,7 +3,7 @@ const axios = require('axios');
 require('dotenv').config();
 const db = require('../database/db.js');
 const app = express()
-console.log(process.env.PORT)
+console.log("PORT ", process.env.PORT)
 const port = process.env.PORT || 5207
 
 app.use(express.json())

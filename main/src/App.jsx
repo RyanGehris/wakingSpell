@@ -20,6 +20,7 @@ function App() {
   const [quiz, setQuiz] = useState([]);
   const [wordData, setWordData] = useState([]);
   const [words, setWords] = useState([]);
+  const [aiImage, setAiImage] = useState('')
   console.log('interval id', intervalId)
   console.log("This is the view ", view)
 
@@ -49,6 +50,12 @@ function App() {
       .catch((err) => {
         console.log(err)
       })
+  }
+
+  const getImage = function(practiceEntry) {
+
+    // setAiImage(?????)
+    // changeView('Greeting');
   }
 
   const updateData = async function(searchWord) {
@@ -205,10 +212,10 @@ function App() {
         wordData={wordData}/>
       }
       {view === 'Practice' &&
-        <Practice setActive={setActive} changeView={changeView} words={words}/>
+        <Practice setActive={setActive} changeView={changeView} words={words} getImage={getImage}/>
       }
       {view === 'Greeting' &&
-        <Greeting changeView={changeView} updateQuiz={updateQuiz}/>
+        <Greeting changeView={changeView} updateQuiz={updateQuiz} aiImage={aiImage}/>
       }
       <audio id="audio" src={quack} type="audio/mpeg">
         browser does not support audio
