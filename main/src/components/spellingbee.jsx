@@ -3,7 +3,6 @@ import '../App.css';
 
 function SpellingBee({ changeView, wordData }) {
   const [order, setOrder] = useState(0);
-  // const [submit, setSubmit] = useState(false);
   const [guess, setGuess] = useState('');
 
   const word = wordData[order].word
@@ -13,7 +12,6 @@ function SpellingBee({ changeView, wordData }) {
 
   const handleNext = function() {
     let nextPosition = order + 1
-    // setSubmit(false)
     if (nextPosition > wordData.length - 1) {
       changeView('Practice');
       setOrder(0);
@@ -26,7 +24,7 @@ function SpellingBee({ changeView, wordData }) {
     let correct = (word.toLowerCase() === guess.toLowerCase())
     let saveData = {
       word: word,
-      audio: findAudio(),
+      audio: findAudio(order),
       definition: def,
       example: exp,
       partOfSpeech: pOS,
@@ -39,7 +37,6 @@ function SpellingBee({ changeView, wordData }) {
       alert(`Nice try! The correct spelling is: ${word}`)
     }
     setGuess('');
-    // setSubmit(true);
     handleNext()
   }
 
@@ -104,12 +101,7 @@ function SpellingBee({ changeView, wordData }) {
           <div>Example: {removeString(word, exp)}</div>
         </div>
         <div>
-            {/* {!submit && */}
-              <button onClick={() => handleSubmit()}>Submit</button>
-            {/* } */}
-            {/* {submit &&
-              <button onClick={() => handleNext()}>Next</button>
-            } */}
+            <button onClick={() => handleSubmit()}>Submit</button>
         </div>
         <audio id="playWord" src={findAudio(order)} type="audio/mpeg">
           browser does not support audio
