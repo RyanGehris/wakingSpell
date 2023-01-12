@@ -30,21 +30,21 @@ function Results({ changeView }) {
   }, [])
 
   return (
-    <div>
-      <button onClick={() => changeView('Waking Spell')}>Home</button>
-      <div>
+    <div class='resultsPageCont'>
+      <button class='home' onClick={() => changeView('Waking Spell')}>Home</button>
+      <div class="resultsSelect">
         <button onClick={() => setCorrect(true)}>Correct</button>
         <button onClick={() => setCorrect(false)}>Incorrect</button>
       </div>
       {correct &&
         <div>
-          <h1>You got these words right!</h1>
+          <h2>You got these words right!</h2>
           <List list={rightList}/>
         </div>
       }
       {!correct &&
         <div>
-          <h1>Practice makes perfect for these!</h1>
+          <h2>Practice makes perfect for these!</h2>
           <List list={wrongList}/>
         </div>
       }

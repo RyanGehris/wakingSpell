@@ -75,10 +75,10 @@ function Alarm({ changeView, handleCancel, setAlarmSet, alarmSet}) {
         </form>
       }
       {alarmSet &&
-        <div>
+        <section id="displayAlarm">
           <span>Alarm for: {localStorage.getItem('alarm')}</span>
-          <button onClick={() => handleCancel()}>Cancel</button>
-        </div>
+          <button onClick={() => handleCancel()}>X</button>
+        </section>
       }
     </div>
   )

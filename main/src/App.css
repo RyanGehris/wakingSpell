@@ -63,3 +63,47 @@ form {
 form > div {
   margin-bottom: 10px;
 }
+
+#displayAlarm {
+  font-size: 25px;
+  font-weight: bold;
+  display: flex;
+  color: orange;
+  flex-direction: row;
+  align-content: center;
+}
+
+#displayAlarm > button {
+  color: red;
+  background-color: linen;
+  border: red solid 3px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.resultsPageCont {
+  height: 575px;
+  padding-top: 10px;
+  width: 94%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resultsSelect > button {
+  align-content: flex-end;
+  color: linen;
+  background-color: #ffa60075;
+  font-weight: bold;
+  font-size: 15px;
+  margin-left: 3px;
+  border-radius: 5px;
+  border: orange solid 2px;
+}
+
+h2 {
+  text-align: center;
+  color: orange;
+  text-decoration: underline;
+}
