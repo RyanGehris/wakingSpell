@@ -18,6 +18,8 @@ function App() {
   const [intervalId, setIntervalId] = useState(0);
   const [alarmSet, setAlarmSet] = useState(false);
   const [quiz, setQuiz] = useState([]);
+  const [wordData, setWordData] = useState([]);
+  const [words, setWords] = useState([]);
   console.log('interval id', intervalId)
   console.log("This is the view ", view)
 
@@ -34,14 +36,26 @@ function App() {
       localStorage.removeItem('intId');
       startInterval();
     }
-    updateQuiz()
+    updateQuiz();
   }, [])
 
   // res[#].word
   const updateQuiz = async function() {
     axios.get('/random')
       .then((res) => {
-        console.log("Succesful ", res)
+        console.log("Succesful ", res.data)
+        setQuiz(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const updateData = async function(searchWord) {
+    return axios.get('/word', { params: {word: searchWord}})
+      .then((res) => {
+        console.log(res.data);
+        return res.data[0];
       })
       .catch((err) => {
         console.log(err)
@@ -115,9 +129,24 @@ function App() {
   }
 
   const handlePrompt = function() {
-    changeView('Spelling Bee')
     setActive(true);
     stopAudio();
+    Promise.all([
+      updateData(quiz[0].word),
+      updateData(quiz[1].word),
+      updateData(quiz[2].word)
+    ])
+      .then((res) => {
+        console.log("Response ", res);
+        setWordData(res);
+        setWords(res.map((data) => {
+          return data.word
+        }))
+        changeView('Spelling Bee')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   // change page you are viewing
@@ -151,6 +180,8 @@ function App() {
     }
   }
 
+  console.log(wordData);
+
   return (
     <div>
       <div><span>{view}</span></div>
@@ -170,13 +201,14 @@ function App() {
         <button onClick={() => handlePrompt()}>Play Spelling Bee</button>
       }
       {view === 'Spelling Bee' &&
-        <SpellingBee setActive={setActive} changeView={changeView}/>
+        <SpellingBee setActive={setActive} changeView={changeView}
+        wordData={wordData}/>
       }
       {view === 'Practice' &&
-        <Practice setActive={setActive} changeView={changeView}/>
+        <Practice setActive={setActive} changeView={changeView} words={words}/>
       }
       {view === 'Greeting' &&
-        <Greeting changeView={changeView}/>
+        <Greeting changeView={changeView} updateQuiz={updateQuiz}/>
       }
       <audio id="audio" src={quack} type="audio/mpeg">
         browser does not support audio

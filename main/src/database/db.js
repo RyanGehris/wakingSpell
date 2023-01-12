@@ -11,8 +11,9 @@ const Words = mongoose.model('Words', wordStore)
 const resultStore = new mongoose.Schema({
   attempted_word: String,
   correct: Boolean,
-  phonetics: [{}],
-  meanings: [{}],
+  audio: String,
+  definition: String,
+  example: String
 })
 const Results = mongoose.model('Results', resultStore)
 

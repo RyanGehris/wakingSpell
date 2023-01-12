@@ -10,10 +10,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.get('/word', (req, res) => {
-  console.log(req.query)
   axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${req.query.word}`)
     .then((result) => {
-      console.log(result.data);
       res.status(200).send(result.data);
     })
     .catch((err) => {
