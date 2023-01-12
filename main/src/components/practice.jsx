@@ -3,7 +3,7 @@ import '../App.css'
 
 function Practice({ changeView, words }) {
   const [entry, setEntry] = useState('');
-  const [req, setReq] = {0: false, 1: false, 2: false}
+  const [req, setReq] = useState({0: false, 1: false, 2: false})
 
   const wordReq = function() {
     let removedPunctuation = entry.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
@@ -30,11 +30,13 @@ function Practice({ changeView, words }) {
         </textarea>
       </form>
       <div>
-        <span style={{return (req[0] ? ("border": "solid green 3px"): ("border": "solid red 3px"))}}>{words[0]}</span>
-        <span style={{return (req[0] ? ("border": "solid green 3px"): ("border": "solid red 3px"))}}>{words[1]}</span>
-        <span style={{return (req[0] ? ("border": "solid green 3px"): ("border": "solid red 3px"))}}>{words[2]}</span>
+        <span style={{"border": `solid ${req["0"] ? 'green': 'red'} 3px`}}>{words[0]}</span>
+        <span style={{"border": `solid ${req["1"] ? 'green': 'red'} 3px`}}>{words[1]}</span>
+        <span style={{"border": `solid ${req["2"] ? 'green': 'red'} 3px`}}>{words[2]}</span>
       </div>
-      <button onClick={() => changeView('Greeting')}>Next</button>
+      { req['0'] && req['1'] && req['2'] &&
+        <button onClick={() => changeView('Greeting')}>Next</button>
+      }
     </div>
   )
 }
