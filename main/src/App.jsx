@@ -12,7 +12,7 @@ import quack from './assets/Duck-quack.mp3'
 function App() {
   const [view, setView] = useState('Waking Spell');
   const [triggered, setTriggered] = useState(false);
-  const [active, setActive] = useState(false);
+  const [idle, setIdle] = useState(false);
   const [intervalId, setIntervalId] = useState(0);
   const [alarmSet, setAlarmSet] = useState(false);
   const [quiz, setQuiz] = useState([]);
@@ -20,13 +20,14 @@ function App() {
   const [words, setWords] = useState([]);
   const [aiImage, setAiImage] = useState('')
   const [practiceEntry, setPracticeEntry] = useState('')
+
   // console.log('interval id', intervalId)
   // console.log("This is the view ", view)
 
   console.log('State Tracker' , {
     view: view,
     triggered: triggered,
-    active: active,
+    idle: idle,
     intervalId: intervalId,
     alarmSet: alarmSet,
     quiz: quiz,
@@ -35,6 +36,7 @@ function App() {
     aiImage: aiImage,
     practiceEntry: practiceEntry
   })
+
 
   useEffect(() => {
     if (localStorage.getItem('alarm')) {
@@ -133,17 +135,18 @@ function App() {
     checkAlarm(timeString);
   };
 
-  let count = 0;
+  // let count = 0;
 
   // Update time every second
   const startInterval = function() {
     let newIntervalId = setInterval(() => {
-      count++;
-      if (count > 18) count = 0;
-      if (count === 18) {
-        alarmAgain();
-      }
-      renderTime()
+      // count++;
+      // if (count > 18) count = 0;
+      // if (count === 18) {
+      //   alarmAgain();
+      // }
+      // alarmAgain();
+      renderTime();
     }, 1000);
     // console.log("before storage ", typeof newIntervalId, newIntervalId)
     setIntervalId(newIntervalId);
@@ -151,7 +154,7 @@ function App() {
   }
 
   const handlePrompt = function() {
-    setActive(true);
+    // setIdle(false);
     stopAudio();
     Promise.all([
       updateData(quiz[0].word),
@@ -187,21 +190,25 @@ function App() {
     audio.play()
   }
 
-  // check if alarm has been triggered, if user is active, and if spelling is complete
-  const alarmAgain = function() {
-    console.log(count, triggered);
-    if (triggered && !active) {
-      playAudio()
-    }
-  }
+  // check if alarm has been triggered, if user is idle, and if spelling is complete
+  // const alarmAgain = function() {
+  //   // console.log(count, triggered);
+  //   // if (triggered && idle) {
+  //   //   playAudio()
+  //   // }
+  //   console.log('idle ', idle, 'triggered ', triggered)
+  //   if (triggered && idle) {
+  //     playAudio()
+  //   }
+  // }
 
   // console.log(wordData);
 
   return (
     <div>
-      <div><span>{view}</span></div>
+      <div class="header"><span>{view}</span></div>
       {view === 'Waking Spell' &&
-        <div>
+        <div class="homeOptionsCont">
           <div onClick={() => changeView('Alarm')}>Set Alarm</div>
           <div onClick={() => changeView('Results')}>Results</div>
         </div>
@@ -216,11 +223,10 @@ function App() {
         <button onClick={() => handlePrompt()}>Play Spelling Bee</button>
       }
       {view === 'Spelling Bee' &&
-        <SpellingBee setActive={setActive} changeView={changeView}
-        wordData={wordData}/>
+        <SpellingBee setIdle={setIdle} changeView={changeView} wordData={wordData}/>
       }
       {view === 'Practice' &&
-        <Practice setActive={setActive} changeView={changeView} words={words} getImage={getImage} setTriggered={setTriggered}/>
+        <Practice setIdle={setIdle} changeView={changeView} words={words} getImage={getImage} setTriggered={setTriggered}/>
       }
       {view === 'Greeting' &&
         <Greeting changeView={changeView} updateQuiz={updateQuiz} aiImage={aiImage} practiceEntry={practiceEntry} setPracticeEntry={setPracticeEntry} setAiImage={setAiImage}/>

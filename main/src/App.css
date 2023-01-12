@@ -1,0 +1,20 @@
+.header {
+  background-color: orange;
+  width: 94%;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header > span {
+  color: linen;
+  font-size: 40px;
+}
+
+.homeOptionsContainer {
+  height: 575px;
+  padding-top: 10px;
+  width: 94%;
+}
