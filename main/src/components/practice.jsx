@@ -35,7 +35,12 @@ function Practice({ changeView, words, getImage }) {
         <span style={{"border": `solid ${req["2"] ? 'green': 'red'} 3px`}}>{words[2]}</span>
       </div>
       { req['0'] && req['1'] && req['2'] &&
-        <button onClick={() => getImage(entry)}>Next</button>
+        <button onClick={() => {
+          getImage(entry)
+          localStorage.removeItem('triggered');
+        }}>
+          Next
+        </button>
       }
     </div>
   )

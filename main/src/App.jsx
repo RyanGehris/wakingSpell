@@ -12,9 +12,7 @@ import quack from './assets/Duck-quack.mp3'
 function App() {
   const [view, setView] = useState('Waking Spell');
   const [triggered, setTriggered] = useState(false);
-  const [spell, setSpell] = useState(false);
   const [active, setActive] = useState(false);
-  const [complete, setComplete] = useState(false)
   const [intervalId, setIntervalId] = useState(0);
   const [alarmSet, setAlarmSet] = useState(false);
   const [quiz, setQuiz] = useState([]);
@@ -30,6 +28,7 @@ function App() {
       setAlarmSet(true);
     }
     if (localStorage.getItem('triggered')) {
+      console.log('ARE WE GETTING IN HERE')
       setTriggered(true);
     }
     if (localStorage.getItem('interval') === 'true') {
@@ -98,10 +97,8 @@ function App() {
     console.log(alarm);
     if (alarm === timeString) {
       console.log(alarm === timeString)
-      // create a simple alert that when text is entered
-      // you will enter the spelling bee and sound will turn off
-      // eventually create a pop up window with a button
       localStorage.setItem('triggered', true);
+      setTriggered(true);
       playAudio();
       handleCancel();
       setView('prompt');
@@ -129,10 +126,10 @@ function App() {
   const startInterval = function() {
     let newIntervalId = setInterval(() => {
       count++;
-      console.log(count);
+      let check = triggered
       if (count > 18) count = 0;
-      console.log(count, triggered)
-      if (count === 18 && triggered) {
+      console.log(count, check)
+      if (count === 18 && check) {
         alarmAgain();
       }
       renderTime()
@@ -175,7 +172,6 @@ function App() {
   }
   // play audio
   const playAudio = function() {
-    setTriggered(true);
     let audio = document.getElementById('audio');
     audio.play()
   }
@@ -184,13 +180,6 @@ function App() {
   const alarmAgain = function() {
     if (triggered && !active) {
       playAudio()
-    }
-    if (complete === true) {
-      console.log("are we changing these?")
-      setTriggered(false);
-      setSpell(false);
-      setActive(false);
-      setComplete(false);
     }
   }
 
