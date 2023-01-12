@@ -20,8 +20,21 @@ function App() {
   const [words, setWords] = useState([]);
   const [aiImage, setAiImage] = useState('')
   const [practiceEntry, setPracticeEntry] = useState('')
-  console.log('interval id', intervalId)
-  console.log("This is the view ", view)
+  // console.log('interval id', intervalId)
+  // console.log("This is the view ", view)
+
+  console.log('State Tracker' , {
+    view: view,
+    triggered: triggered,
+    active: active,
+    intervalId: intervalId,
+    alarmSet: alarmSet,
+    quiz: quiz,
+    wordData: wordData,
+    words: words,
+    aiImage: aiImage,
+    practiceEntry: practiceEntry
+  })
 
   useEffect(() => {
     if (localStorage.getItem('alarm')) {
@@ -32,7 +45,7 @@ function App() {
       setTriggered(true);
     }
     if (localStorage.getItem('interval') === 'true') {
-      console.log('type after storage ', typeof localStorage.getItem('intId'), localStorage.getItem('intId'))
+      // console.log('type after storage ', typeof localStorage.getItem('intId'), localStorage.getItem('intId'))
       clearInterval(parseInt(localStorage.getItem('intId')));
       localStorage.removeItem('intId');
       startInterval();
@@ -67,7 +80,7 @@ function App() {
   const updateData = async function(searchWord) {
     return axios.get('/word', { params: {word: searchWord}})
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         return res.data[0];
       })
       .catch((err) => {
@@ -126,15 +139,13 @@ function App() {
   const startInterval = function() {
     let newIntervalId = setInterval(() => {
       count++;
-      let check = triggered
       if (count > 18) count = 0;
-      console.log(count, check)
-      if (count === 18 && check) {
+      if (count === 18) {
         alarmAgain();
       }
       renderTime()
     }, 1000);
-    console.log("before storage ", typeof newIntervalId, newIntervalId)
+    // console.log("before storage ", typeof newIntervalId, newIntervalId)
     setIntervalId(newIntervalId);
     localStorage.setItem('intId', newIntervalId);
   }
@@ -148,7 +159,7 @@ function App() {
       updateData(quiz[2].word)
     ])
       .then((res) => {
-        console.log("Response ", res);
+        // console.log("Response ", res);
         setWordData(res);
         setWords(res.map((data) => {
           return data.word
@@ -178,12 +189,13 @@ function App() {
 
   // check if alarm has been triggered, if user is active, and if spelling is complete
   const alarmAgain = function() {
+    console.log(count, triggered);
     if (triggered && !active) {
       playAudio()
     }
   }
 
-  console.log(wordData);
+  // console.log(wordData);
 
   return (
     <div>
@@ -208,10 +220,10 @@ function App() {
         wordData={wordData}/>
       }
       {view === 'Practice' &&
-        <Practice setActive={setActive} changeView={changeView} words={words} getImage={getImage}/>
+        <Practice setActive={setActive} changeView={changeView} words={words} getImage={getImage} setTriggered={setTriggered}/>
       }
       {view === 'Greeting' &&
-        <Greeting changeView={changeView} updateQuiz={updateQuiz} aiImage={aiImage} practiceEntry={practiceEntry} setPracticeEntry={setPracticeEntry}/>
+        <Greeting changeView={changeView} updateQuiz={updateQuiz} aiImage={aiImage} practiceEntry={practiceEntry} setPracticeEntry={setPracticeEntry} setAiImage={setAiImage}/>
       }
       <audio id="audio" src={quack} type="audio/mpeg">
         browser does not support audio

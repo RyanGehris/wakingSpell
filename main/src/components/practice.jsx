@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../App.css'
 
-function Practice({ changeView, words, getImage }) {
+function Practice({ changeView, words, getImage, setTriggered }) {
   const [entry, setEntry] = useState('');
   const [req, setReq] = useState({0: false, 1: false, 2: false})
 
@@ -37,6 +37,7 @@ function Practice({ changeView, words, getImage }) {
       { req['0'] && req['1'] && req['2'] &&
         <button onClick={() => {
           getImage(entry)
+          setTriggered(false);
           localStorage.removeItem('triggered');
         }}>
           Next

@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css'
 
-function Greeting({ changeView, updateQuiz, aiImage, practiceEntry, setPracticeEntry }) {
+function Greeting({ changeView, updateQuiz, aiImage, setAiImage,  practiceEntry, setPracticeEntry }) {
 
   return (
     <div>
@@ -19,7 +19,8 @@ function Greeting({ changeView, updateQuiz, aiImage, practiceEntry, setPracticeE
       </div>
       <button onClick={() => {
         updateQuiz();
-        setPracticeEntry('')
+        setPracticeEntry('');
+        setAiImage('');
         changeView('Waking Spell');
       }}>
         Start Your Day
