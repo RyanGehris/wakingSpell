@@ -24,6 +24,14 @@ function SpellingBee({ changeView, wordData }) {
 
   const handleSubmit = function() {
     let correct = (word.toLowerCase() === guess.toLowerCase())
+    let saveData = {
+      word: word,
+      audio: findAudio(),
+      definition: def,
+      example: exp,
+      partOfSpeech: pOS,
+      correct: correct
+    }
     // post to database
     if (correct) {
       alert('Good Job!');

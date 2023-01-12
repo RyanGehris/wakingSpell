@@ -13,7 +13,8 @@ const resultStore = new mongoose.Schema({
   correct: Boolean,
   audio: String,
   definition: String,
-  example: String
+  example: String,
+  partOfSpeech: String
 })
 const Results = mongoose.model('Results', resultStore)
 
