@@ -6,10 +6,10 @@ function SpellingBee({ changeView, wordData }) {
   const [order, setOrder] = useState(0);
   const [guess, setGuess] = useState('');
 
-  const word = wordData[order].word
-  const pOS = wordData[order].meanings[0].partOfSpeech
-  const def = wordData[order].meanings[0].definitions[0].definition
-  const exp = wordData[order].meanings[0].definitions[0].example
+  const word = wordData[order].word;
+  const pOS = wordData[order].meanings[0].partOfSpeech;
+  const def = wordData[order].meanings[0].definitions[0].definition;
+  const exp = wordData[order].meanings[0].definitions[0].example || 'No examples provided.';
 
   const handleNext = function() {
     let nextPosition = order + 1
@@ -31,6 +31,7 @@ function SpellingBee({ changeView, wordData }) {
       partOfSpeech: pOS,
       correct: correct
     }
+    console.log(saveData);
     axios.post('/updateResult', saveData)
       .then((res) => {
         console.log("Success ", res);
@@ -59,8 +60,8 @@ function SpellingBee({ changeView, wordData }) {
   }
 
   const removeString = function(str, sentence) {
-    if (sentence === undefined) {
-      return 'No example provided.'
+    if (sentence === 'No examples provided.') {
+      return 'No examples provided.'
     }
     let sentenceArray = sentence.split(' ');
     for (let j = 0; j < sentenceArray.length; j++) {

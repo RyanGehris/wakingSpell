@@ -3,8 +3,8 @@ import '../App.css';
 
 function List({ list }) {
 
-  const handleWordPlay = function() {
-    let playWord = document.getElementById('playWord');
+  const handleWordPlay = function(id) {
+    let playWord = document.getElementById(id);
     playWord.play()
   }
 
@@ -17,7 +17,7 @@ function List({ list }) {
               <div>
                 <div>{wordObj.attempted_word}</div>
                 {wordObj.audio.length !== 0 &&
-                  <button onClick={() => handleWordPlay()}>Play</button>
+                  <button onClick={() => handleWordPlay(wordObj.attempted_word + 'audio')}>Play</button>
                 }
                 {wordObj.audio.length === 0 &&
                   <div>Sorry there is no audio.</div>
@@ -32,7 +32,7 @@ function List({ list }) {
             {(wordObj.example.length === 1 || wordObj.example.length === undefined) &&
               <div>Sorry, there is no example for this word</div>
             }
-            <audio id="playWord" src={wordObj.audio} type="audio/mpeg">
+            <audio id={wordObj.attempted_word + 'audio'} src={wordObj.audio} type="audio/mpeg">
               browser does not support audio
             </audio>
           </div>
