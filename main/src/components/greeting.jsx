@@ -4,7 +4,7 @@ import '../App.css'
 function Greeting({ changeView, updateQuiz, aiImage, setAiImage,  practiceEntry, setPracticeEntry }) {
 
   return (
-    <div>
+    <div class="homeOptionsCont">
       <div>
         <div>AI is awake and productive! Time for you to be too!</div>
         {aiImage === '' &&

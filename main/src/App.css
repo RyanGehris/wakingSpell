@@ -13,8 +13,53 @@
   font-size: 40px;
 }
 
-.homeOptionsContainer {
+.homeOptionsCont {
   height: 575px;
   padding-top: 10px;
   width: 94%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.homeOptionsCont > div,
+.home {
+  border: orange solid 2px;
+  margin-bottom: 10px;
+  color: linen;
+  background-color: #ffa60075;
+  width: 50%;
+  border-radius: 5px;
+  display: flex;
+  font-size: 20px;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  height: 35px;
+  justify-content: center;
+}
+
+.submit {
+  border: orange solid 2px;
+    margin-bottom: 10px;
+    color: linen;
+    background-color: #ffa60075;
+    width: 50%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form > div {
+  margin-bottom: 10px;
 }

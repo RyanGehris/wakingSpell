@@ -36,15 +36,15 @@ function Alarm({ changeView, handleCancel, setAlarmSet, alarmSet}) {
   };
 
   return (
-    <div>
-      <button onClick={() => changeView('Waking Spell')}>Home</button>
+    <div class="homeOptionsCont">
+      <button class='home' onClick={() => changeView('Waking Spell')}>Home</button>
       {!alarmSet &&
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
             <input
               type="number"
               name="hour"
-              placeholder="Enter hours"
+              placeholder="hr"
               min="0"
               max="12"
               required
@@ -54,7 +54,7 @@ function Alarm({ changeView, handleCancel, setAlarmSet, alarmSet}) {
               name="min"
               min="0"
               max="59"
-              placeholder="Enter minutes"
+              placeholder="mins"
               required
             />
             <input
@@ -62,7 +62,7 @@ function Alarm({ changeView, handleCancel, setAlarmSet, alarmSet}) {
               name="sec"
               min="0"
               max="59"
-              placeholder="Enter seconds"
+              placeholder="sec"
               required
             />
             <select name="zone" required>
@@ -71,7 +71,7 @@ function Alarm({ changeView, handleCancel, setAlarmSet, alarmSet}) {
               <option value="PM">PM</option>
             </select>
           </div>
-          <button>Submit</button>
+          <button class='submit'>Submit</button>
         </form>
       }
       {alarmSet &&
