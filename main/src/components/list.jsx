@@ -1,4 +1,5 @@
 import React from 'react';
+import soundIcon from '../assets/icons8-audio-50.png'
 import '../App.css';
 
 function List({ list }) {
@@ -13,24 +14,30 @@ function List({ list }) {
       {list.map((wordObj) => {
         return (
           <div class="resultTile">
-            <div>
-              <div>
-                <div>{wordObj.attempted_word}</div>
-                {wordObj.audio.length !== 0 &&
-                  <button onClick={() => handleWordPlay(wordObj.attempted_word + 'audio')}>Play</button>
-                }
-                {wordObj.audio.length === 0 &&
-                  <div>Sorry there is no audio.</div>
-                }
-              </div>
+            <div class="resultTileHead">
+              <div>{wordObj.attempted_word}:</div>
+              {wordObj.audio.length !== 0 &&
+                <img src={soundIcon} alt="Sound icon" onClick={() => handleWordPlay(wordObj.attempted_word + 'audio')}></img>
+              }
+              {wordObj.audio.length === 0 &&
+                <span>Sorry there is no audio.</span>
+              }
             </div>
-            <div>Part of Speech: {wordObj.partOfSpeech}</div>
-            <div>Definition: {wordObj.definition}</div>
+            <div class="wordDataCont">
+              <span>Part of Speech:</span> {wordObj.partOfSpeech}
+            </div>
+            <div class="wordDataCont">
+              <span>Definition:</span> {wordObj.definition}
+            </div>
             {wordObj.example.length > 1 &&
-              <div>Example: {wordObj.example}</div>
+              <div class="wordDataCont">
+                <span>Example:</span> {wordObj.example}
+              </div>
             }
             {(wordObj.example.length === 1 || wordObj.example.length === undefined) &&
-              <div>Sorry, there is no example for this word</div>
+              <div class="wordDataCont">
+                <span>Example:</span> Example: NONE PROVIDED
+              </div>
             }
             <audio id={wordObj.attempted_word + 'audio'} src={wordObj.audio} type="audio/mpeg">
               browser does not support audio

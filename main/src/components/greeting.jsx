@@ -5,19 +5,21 @@ function Greeting({ changeView, updateQuiz, aiImage, setAiImage,  practiceEntry,
 
   return (
     <div class="greetingCont">
-      <div>
-        <div>AI is awake and productive! Time for you to be too!</div>
+      <div className='imageCont'>
         {aiImage === '' &&
-          <div>
+          <>
+            <h2>Waking up AI!!!</h2>
             <img src='https://media.giphy.com/media/ZO9b1ntYVJmjZlsWlm/giphy.gif' alt="loading preview"></img>
-            Waiting for AI to generate image.....
-          </div>
+          </>
         }
         {aiImage !== '' &&
-          <img src={aiImage} alt={`produced by AI based off of the description ${practiceEntry}`}></img>
+          <>
+            <h2>AI is awake and productive! Time for you to be too!</h2>
+            <img src={aiImage} alt={`produced by AI based off of the description ${practiceEntry}`}></img>
+          </>
         }
       </div>
-      <button onClick={() => {
+      <button className="submitAnswer" onClick={() => {
         updateQuiz();
         setPracticeEntry('');
         setAiImage('');

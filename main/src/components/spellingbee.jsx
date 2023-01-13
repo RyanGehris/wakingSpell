@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import soundIcon from "../assets/icons8-audio-50.png"
 import axios from 'axios';
 import '../App.css';
 
@@ -86,10 +87,10 @@ function SpellingBee({ changeView, wordData }) {
     return (
       <div class="spellBeeCont">
         <div>
-          <div>
-            <div>
+          <div className="resultTile">
+            <div className="resultTileHead">
               <form>
-                <input
+                <input className="spellingInput"
                   type="text"
                   placeholder="Spell it!"
                   value={guess}
@@ -97,20 +98,24 @@ function SpellingBee({ changeView, wordData }) {
                 </input>
               </form>
               {findAudio(order).length !== 0 &&
-                <button onClick={() => handleWordPlay()}>Play</button>
+                <img src={soundIcon} alt="Sound icon" onClick={() => handleWordPlay()}></img>
               }
               {findAudio(order).length === 0 &&
                 <div>Sorry there is no audio. Try to guess this {word.length} letter word that starts with {word.split('')[0]} and ends with {word.split('')[word.length-1]}</div>
               }
             </div>
           </div>
-          <div>Part of Speech: {pOS}</div>
-          <div>Definition: {def}</div>
-          <div>Example: {removeString(word, exp)}</div>
+          <div class="wordDataContainer">
+            <span>Part of Speech:</span> {pOS}
+          </div>
+          <div class="wordDataContainer">
+            <span>Definition:</span> {def}
+          </div>
+          <div class="wordDataContainer">
+            <span>Example:</span> {removeString(word, exp)}
+          </div>
         </div>
-        <div>
-            <button onClick={() => handleSubmit()}>Submit</button>
-        </div>
+        <button className="submitAnswer" onClick={() => handleSubmit()}>Submit</button>
         <audio id="playWord" src={findAudio(order)} type="audio/mpeg">
           browser does not support audio
         </audio>

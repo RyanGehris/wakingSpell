@@ -42,16 +42,38 @@
 
 .submit {
   border: orange solid 2px;
-    margin-bottom: 10px;
-    color: linen;
-    background-color: #ffa60075;
-    width: 50%;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-weight: bold;
-    justify-content: center;
+  margin-bottom: 10px;
+  color: linen;
+  background-color: #ffa60075;
+  width: 50%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  justify-content: center;
+}
+form {
+  align-items: center;
+}
+
+.spellingInput {
+  height: 20px;
+}
+
+.submitAnswer {
+  border: orange solid 2px;
+  margin: 10px 0px;
+  color: linen;
+  background-color: #ffa60075;
+  width: 50%;
+  height: 35px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  justify-content: center;
 }
 
 form {
@@ -118,6 +140,33 @@ h2 {
 .resultTile {
   background-color: linen;
   margin: 5px 5px;
+  padding: 5px
+}
+
+.resultTileHead {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.resultTileHead > div {
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.resultTileHead > img {
+  height: 30px;
+  width: 30px;
+}
+
+.wordDataContainer {
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+
+.wordDataContainer > span {
+  font-weight: bold;
 }
 
 .spellBeeCont {
@@ -136,6 +185,30 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.practiceForm {
+  width: 75%;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.practiceForm > textarea {
+  width: 100%;
+  height: 100%
+}
+
+.practiceReqs {
+  display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 75%;
+}
+
+.practiceReqs > span {
+  margin: 0px 5px;
+  padding: 3px;
+  border-radius: 5px;
 }
 
 .greetingCont {
@@ -161,4 +234,19 @@ h2 {
   font-weight: bold;
   height: 35px;
   justify-content: center;
+}
+
+.imgCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center {
+  height: 575px;
+  padding-top: 10px;
+  width: 94%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

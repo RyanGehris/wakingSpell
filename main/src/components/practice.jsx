@@ -18,8 +18,8 @@ function Practice({ changeView, words, getImage, setTriggered }) {
 
   return (
     <div class="practiceCont">
-      <div>Write one sentence for each word you learned!</div>
-      <form>
+      <h2>Describe a scene using the below words!</h2>
+      <form className="practiceForm">
         <textarea
           placeholder="Type your sentences here..."
           value={entry}
@@ -29,13 +29,13 @@ function Practice({ changeView, words, getImage, setTriggered }) {
           }}>
         </textarea>
       </form>
-      <div>
+      <div className="practiceReqs">
         <span style={{"border": `solid ${req["0"] ? 'green': 'red'} 3px`}}>{words[0]}</span>
         <span style={{"border": `solid ${req["1"] ? 'green': 'red'} 3px`}}>{words[1]}</span>
         <span style={{"border": `solid ${req["2"] ? 'green': 'red'} 3px`}}>{words[2]}</span>
       </div>
       { req['0'] && req['1'] && req['2'] &&
-        <button onClick={() => {
+        <button className="submitAnswer" onClick={() => {
           getImage(entry)
           setTriggered(false);
           localStorage.removeItem('triggered');
