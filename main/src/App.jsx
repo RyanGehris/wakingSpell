@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
-import './App.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./App.css";
 
-import Alarm from './components/alarm.jsx'
-import Results from './components/results.jsx'
-import SpellingBee from './components/spellingbee.jsx'
-import Practice from './components/practice.jsx'
-import Greeting from './components/greeting.jsx'
-import quack from './assets/Duck-quack.mp3'
+import Alarm from "./components/alarm.jsx";
+import Results from "./components/results.jsx";
+import SpellingBee from "./components/spellingbee.jsx";
+import Practice from "./components/practice.jsx";
+import Greeting from "./components/greeting.jsx";
+import quack from "./assets/Duck-quack.mp3";
 
 function App() {
-  const [view, setView] = useState('Waking Spell');
+  const [view, setView] = useState("Waking Spell");
   const [triggered, setTriggered] = useState(false);
   const [idle, setIdle] = useState(false);
   const [intervalId, setIntervalId] = useState(0);
@@ -18,82 +18,83 @@ function App() {
   const [quiz, setQuiz] = useState([]);
   const [wordData, setWordData] = useState([]);
   const [words, setWords] = useState([]);
-  const [aiImage, setAiImage] = useState('')
-  const [practiceEntry, setPracticeEntry] = useState('')
+  const [aiImage, setAiImage] = useState("");
+  const [practiceEntry, setPracticeEntry] = useState("");
 
   // console.log('interval id', intervalId)
   // console.log("This is the view ", view)
 
-  console.log('State Tracker' , {
-    view: view,
-    triggered: triggered,
-    idle: idle,
-    intervalId: intervalId,
-    alarmSet: alarmSet,
-    quiz: quiz,
-    wordData: wordData,
-    words: words,
-    aiImage: aiImage,
-    practiceEntry: practiceEntry
-  })
-
+  // console.log('State Tracker' , {
+  //   view: view,
+  //   triggered: triggered,
+  //   idle: idle,
+  //   intervalId: intervalId,
+  //   alarmSet: alarmSet,
+  //   quiz: quiz,
+  //   wordData: wordData,
+  //   words: words,
+  //   aiImage: aiImage,
+  //   practiceEntry: practiceEntry
+  // })
 
   useEffect(() => {
-    if (localStorage.getItem('alarm')) {
+    if (localStorage.getItem("alarm")) {
       setAlarmSet(true);
     }
-    if (localStorage.getItem('triggered')) {
-      console.log('ARE WE GETTING IN HERE')
+    if (localStorage.getItem("triggered")) {
       setTriggered(true);
     }
-    if (localStorage.getItem('interval') === 'true') {
+    if (localStorage.getItem("interval") === "true") {
       // console.log('type after storage ', typeof localStorage.getItem('intId'), localStorage.getItem('intId'))
-      clearInterval(parseInt(localStorage.getItem('intId')));
-      localStorage.removeItem('intId');
+      clearInterval(parseInt(localStorage.getItem("intId")));
+      localStorage.removeItem("intId");
       startInterval();
     }
     updateQuiz();
-  }, [])
+  }, []);
 
   // res[#].word
   const updateQuiz = async function() {
-    axios.get('/random')
+    axios
+      .get("/random")
       .then((res) => {
-        console.log("Succesful ", res.data)
-        setQuiz(res.data)
+        // console.log("Succesful ", res.data)
+        setQuiz(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   const getImage = function(practiceEntry) {
-    setPracticeEntry(practiceEntry)
-    changeView('Greeting')
-    axios.get('/aiImage', { params: {entry: practiceEntry}})
+    setPracticeEntry(practiceEntry);
+    changeView("Greeting");
+    axios
+      .get("/aiImage", { params: { entry: practiceEntry } })
       .then((res) => {
         setAiImage(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   const updateData = async function(searchWord) {
-    return axios.get('/word', { params: {word: searchWord}})
+    return axios
+      .get("/word", { params: { word: searchWord } })
       .then((res) => {
         // console.log(res.data);
         return res.data[0];
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   const handleCancel = function() {
-    localStorage.removeItem('alarm');
+    localStorage.removeItem("alarm");
     setAlarmSet(false);
-  }
+  };
 
   const getTimeString = ({ hours, minutes, seconds, zone }) => {
     if (minutes / 10 < 1) {
@@ -105,18 +106,16 @@ function App() {
     return `${hours}:${minutes}:${seconds} ${zone}`;
   };
 
-
-
   const checkAlarm = (timeString) => {
-    let alarm = localStorage.getItem('alarm')
+    let alarm = localStorage.getItem("alarm");
     console.log(alarm);
     if (alarm === timeString) {
-      console.log(alarm === timeString)
-      localStorage.setItem('triggered', true);
+      // console.log(alarm === timeString)
+      localStorage.setItem("triggered", true);
       setTriggered(true);
       playAudio();
       handleCancel();
-      setView('prompt');
+      setView("prompt");
     }
   };
 
@@ -150,8 +149,8 @@ function App() {
     }, 1000);
     // console.log("before storage ", typeof newIntervalId, newIntervalId)
     setIntervalId(newIntervalId);
-    localStorage.setItem('intId', newIntervalId);
-  }
+    localStorage.setItem("intId", newIntervalId);
+  };
 
   const handlePrompt = function() {
     // setIdle(false);
@@ -159,36 +158,38 @@ function App() {
     Promise.all([
       updateData(quiz[0].word),
       updateData(quiz[1].word),
-      updateData(quiz[2].word)
+      updateData(quiz[2].word),
     ])
       .then((res) => {
         // console.log("Response ", res);
         setWordData(res);
-        setWords(res.map((data) => {
-          return data.word
-        }))
-        changeView('Spelling Bee')
+        setWords(
+          res.map((data) => {
+            return data.word;
+          })
+        );
+        changeView("Spelling Bee");
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   // change page you are viewing
   const changeView = function(name) {
     setView(name);
-  }
+  };
 
   const stopAudio = function() {
-    let audio = document.getElementById('audio');
+    let audio = document.getElementById("audio");
     audio.pause();
     audio.currentTime = 0;
-  }
+  };
   // play audio
   const playAudio = function() {
-    let audio = document.getElementById('audio');
-    audio.play()
-  }
+    let audio = document.getElementById("audio");
+    audio.play();
+  };
 
   // check if alarm has been triggered, if user is idle, and if spelling is complete
   // const alarmAgain = function() {
@@ -206,38 +207,62 @@ function App() {
 
   return (
     <div>
-      <div class="header"><span>{view}</span></div>
-      {view === 'Waking Spell' &&
+      <div class="header">
+        <span>{view}</span>
+      </div>
+      {view === "Waking Spell" && (
         <div class="homeOptionsCont">
-          <div onClick={() => changeView('Alarm')}>Set Alarm</div>
-          <div onClick={() => changeView('Results')}>Results</div>
+          <div onClick={() => changeView("Alarm")}>Set Alarm</div>
+          <div onClick={() => changeView("Results")}>Results</div>
         </div>
-      }
-      {view === 'Alarm' &&
-        <Alarm changeView={changeView} handleCancel={handleCancel} setAlarmSet={setAlarmSet} alarmSet={alarmSet}/>
-      }
-      {view === 'Results' &&
-        <Results changeView={changeView}/>
-      }
-      {view === 'prompt' &&
+      )}
+      {view === "Alarm" && (
+        <Alarm
+          changeView={changeView}
+          handleCancel={handleCancel}
+          setAlarmSet={setAlarmSet}
+          alarmSet={alarmSet}
+        />
+      )}
+      {view === "Results" && <Results changeView={changeView} />}
+      {view === "prompt" && (
         <div className="center">
-          <button class="prompt" onClick={() => handlePrompt()}>Play Spelling Bee</button>
+          <button class="prompt" onClick={() => handlePrompt()}>
+            Play Spelling Bee
+          </button>
         </div>
-      }
-      {view === 'Spelling Bee' &&
-        <SpellingBee setIdle={setIdle} changeView={changeView} wordData={wordData}/>
-      }
-      {view === 'Practice' &&
-        <Practice setIdle={setIdle} changeView={changeView} words={words} getImage={getImage} setTriggered={setTriggered}/>
-      }
-      {view === 'Greeting' &&
-        <Greeting changeView={changeView} updateQuiz={updateQuiz} aiImage={aiImage} practiceEntry={practiceEntry} setPracticeEntry={setPracticeEntry} setAiImage={setAiImage}/>
-      }
+      )}
+      {view === "Spelling Bee" && (
+        <SpellingBee
+          setIdle={setIdle}
+          changeView={changeView}
+          wordData={wordData}
+        />
+      )}
+      {view === "Practice" && (
+        <Practice
+          setIdle={setIdle}
+          changeView={changeView}
+          words={words}
+          getImage={getImage}
+          setTriggered={setTriggered}
+        />
+      )}
+      {view === "Greeting" && (
+        <Greeting
+          changeView={changeView}
+          updateQuiz={updateQuiz}
+          aiImage={aiImage}
+          practiceEntry={practiceEntry}
+          setPracticeEntry={setPracticeEntry}
+          setAiImage={setAiImage}
+        />
+      )}
       <audio id="audio" src={quack} type="audio/mpeg">
         browser does not support audio
       </audio>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

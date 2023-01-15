@@ -34,7 +34,7 @@ function SpellingBee({ changeView, wordData }) {
       partOfSpeech: pOS,
       correct: correct,
     };
-    console.log(saveData);
+    // console.log(saveData);
     axios
       .post("/updateResult", saveData)
       .then((res) => {
@@ -84,7 +84,7 @@ function SpellingBee({ changeView, wordData }) {
     playWord.play();
   };
 
-  console.log(def, exp, word, pOS);
+  // console.log(def, exp, word, pOS);
 
   if (order <= wordData.length - 1) {
     return (
