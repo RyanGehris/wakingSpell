@@ -40,7 +40,7 @@ function Alarm({ changeView, handleCancel, setAlarmSet, alarmSet}) {
       <button class='home' onClick={() => changeView('Waking Spell')}>Home</button>
       {!alarmSet &&
         <form onSubmit={(e) => handleSubmit(e)}>
-          <div>
+          <div className="formCont">
             <input
               type="number"
               name="hour"
