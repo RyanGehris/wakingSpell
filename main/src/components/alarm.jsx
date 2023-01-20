@@ -35,8 +35,8 @@ function Alarm({ changeView, handleCancel, setAlarmSet, alarmSet }) {
   };
 
   return (
-    <div class="homeOptionsCont">
-      <button class="home" onClick={() => changeView("Waking Spell")}>
+    <div className="homeOptionsCont">
+      <button className="home" onClick={() => changeView("Waking Spell")}>
         Home
       </button>
       {!alarmSet && (
@@ -74,7 +74,7 @@ function Alarm({ changeView, handleCancel, setAlarmSet, alarmSet }) {
               <option value="PM">PM</option>
             </select>
           </div>
-          <button class="submit">Submit</button>
+          <button className="submit">Submit</button>
         </form>
       )}
       {alarmSet && (

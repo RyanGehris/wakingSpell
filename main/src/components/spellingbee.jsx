@@ -88,7 +88,7 @@ function SpellingBee({ changeView, wordData }) {
 
   if (order <= wordData.length - 1) {
     return (
-      <div class="spellBeeCont">
+      <div className="spellBeeCont">
         <div className="resultTile">
           <div>
             <div className="resultTileHead">
@@ -117,13 +117,13 @@ function SpellingBee({ changeView, wordData }) {
               )}
             </div>
           </div>
-          <div class="wordDataContainer">
+          <div className="wordDataContainer">
             <span>Part of Speech:</span> {pOS}
           </div>
-          <div class="wordDataContainer">
+          <div className="wordDataContainer">
             <span>Definition:</span> {def}
           </div>
-          <div class="wordDataContainer">
+          <div className="wordDataContainer">
             <span>Example:</span> {removeString(word, exp)}
           </div>
         </div>

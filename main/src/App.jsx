@@ -207,11 +207,11 @@ function App() {
 
   return (
     <div>
-      <div class="header">
+      <div className="header">
         <span>{view}</span>
       </div>
       {view === "Waking Spell" && (
-        <div class="homeOptionsCont">
+        <div className="homeOptionsCont">
           <div onClick={() => changeView("Alarm")}>Set Alarm</div>
           <div onClick={() => changeView("Results")}>Results</div>
         </div>
@@ -227,7 +227,7 @@ function App() {
       {view === "Results" && <Results changeView={changeView} />}
       {view === "prompt" && (
         <div className="center">
-          <button class="prompt" onClick={() => handlePrompt()}>
+          <button className="prompt" onClick={() => handlePrompt()}>
             Play Spelling Bee
           </button>
         </div>

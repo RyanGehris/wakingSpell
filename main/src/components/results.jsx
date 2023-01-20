@@ -31,11 +31,11 @@ function Results({ changeView }) {
   }, []);
 
   return (
-    <div class="resultsPageCont">
-      <button class="home" onClick={() => changeView("Waking Spell")}>
+    <div className="resultsPageCont">
+      <button className="home" onClick={() => changeView("Waking Spell")}>
         Home
       </button>
-      <div class="resultsSelect">
+      <div className="resultsSelect">
         <button onClick={() => setCorrect(true)}>Correct</button>
         <button onClick={() => setCorrect(false)}>Incorrect</button>
       </div>
